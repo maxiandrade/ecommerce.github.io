@@ -17,7 +17,7 @@ const validarProductoRepetido = (productoId) => {
     } else {
         agregarAlCarrito(productoId);
     }
-    
+
 };
 
 const agregarAlCarrito = (productoId) => {
@@ -37,7 +37,7 @@ const agregarAlCarrito = (productoId) => {
 };
 
 
-// pintarCarrito
+// pinta el Carrito
 
 const pintarCarrito = (carrito) => {
     const contenedor = document.getElementById('carrito-contenedor');
@@ -62,10 +62,41 @@ const eliminarProductoCarrito = (productoId) => {
 
     actualizarTotalesCarrito(carritoActualizado);
     pintarCarrito(carritoActualizado);
-    Swal.fire ({
+    Swal.fire({
         icon: "success",
         title: "Se elimino del carrito",
         showConfirmButton: false,
         timer: 800
     })
 };
+
+
+// funcion que vacia el array hasta que su longitud deje de ser mayor a 0 tambien actualiza los valores del carrito
+
+let botones = document.querySelectorAll('.material-icons');
+botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+
+        if (carrito.length){ 
+            while (carrito.length > 0) {
+                carrito.pop()
+                actualizarTotalesCarrito(carrito)
+            pintarCarrito(carrito)
+    
+            Swal.fire({
+                icon: "success",
+                title: "Los productos han sido eliminados con éxito!",
+                showConfirmButton: false,
+                timer: 1300
+            })
+        }
+        } else if ( carrito.length === 0){
+            Swal.fire({
+                icon: "error",
+                title: "El carrito esta vacio!",
+                showConfirmButton: false,
+                timer: 1300
+            })
+        }
+    })
+})
